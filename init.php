@@ -90,7 +90,7 @@ class Af_Feedmod extends Plugin implements IHandler
                             }
                         }
                     }
-                    
+
                     $charset = false;
                     if (!isset($config['force_charset'])) {
                         if ($content_type) {
@@ -101,26 +101,26 @@ class Af_Feedmod extends Plugin implements IHandler
                         // use forced charset
                         $charset = $config['force_charset'];
                     }
-    
+
                     if ($charset && isset($config['force_unicode']) && $config['force_unicode']) {
                         $html = iconv($charset, 'utf-8', $html);
                         $charset = 'utf-8';
                     }
-                    
+
                     if ($charset) {
                             $html = '<?xml encoding="' . $charset . '">' . $html;
                     }
-                    
-                    
-                        
-                    
+
+
+
+
 
                     @$doc->loadHTML($html);
 
                     if ($doc) {
                         $basenode = false;
                         $xpath = new DOMXPath($doc);
-                        $entries = $xpath->query('(//'.$config['xpath'].')');   // find main DIV according to config
+                        $entries = $xpath->query($config['xpath']);   // find main DIV according to config
 
                         if ($entries->length > 0) $basenode = $entries->item(0);
 
